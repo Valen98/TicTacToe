@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 public class PlayerX extends Player{
 
 	private JLabel markerText = new JLabel();
-	private JPanel marker;
 	
 	PlayerX() {
 		marker = super.marker;
@@ -15,12 +14,12 @@ public class PlayerX extends Player{
 	}
 	
 	@Override
-	public void paintMarker() {
+	public String paintMarker() {
 		System.out.println("PLAYERX");
 		markerText.setText("X");
 		markerText.setForeground (Color.blue);
 		markerText.setFont(new Font("Monaco", Font.PLAIN, 120));
-		marker.add(markerText);
+		return "X";
 	}
 	public JLabel getMarker() {
 		return this.markerText;

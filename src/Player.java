@@ -24,11 +24,11 @@ public class Player {
 	}
 	
 	
-	public void paintMarker() {
+	public String paintMarker() {
 		System.out.println("Created Empty tile");
 		markerText.setText("");
-		marker.add(markerText);
-		
+		//marker.add(markerText);
+		return "";
 	}
 	
 	public JLabel getMarker() {

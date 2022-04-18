@@ -9,10 +9,10 @@ import javax.swing.JPanel;
 
 public class Tile implements MouseListener{
 	
-	private JLabel text = new JLabel();
 	private Grid grid;
 	JPanel tilePanel = new JPanel();
 	JPanel playerPanel = new JPanel();
+	JLabel markerText = new JLabel();
 	
 	private Player player;
 	private PlayerX playerX;
@@ -29,34 +29,52 @@ public class Tile implements MouseListener{
 		this.grid = grid;
 		tilePanel.setBorder(BorderFactory.createLineBorder(new Color(50,50,50)));
 		tilePanel.addMouseListener(this);
-		tilePanel.add(playerPanel);
+		tilePanel.add(markerText);
 	}
 
 	public void updateValue() {
 		boolean playerTurn = player.getPlayerTurn();
 		System.out.println(playerX.getMarker().getText() + " <- This is the marker");
-		if(player.getMarker().getText() == "") {
+		if(markerText.getText().equals("")) {
 			if(playerTurn) {
 				tilePanel.remove(this.playerPanel);
-				playerX.paintMarker();
-				tilePanel.add(playerX.getPlayerPanel());
+				setXMarker();
 				
 				//setPlayer(player);
 			}else {
 				tilePanel.remove(this.playerPanel);
-				playerO.paintMarker();
-				tilePanel.add(playerO.getPlayerPanel());;
+				setOMarker();
 				//setPlayer(player);
 			}
 			player.setPlayerTurn();
-			grid.getWinner();
 			tilePanel.repaint();
 			tilePanel.revalidate();
+			grid.getWinner();
 		}
 	}
 	
 	public JPanel getTile() {
 		return this.tilePanel;
+	}
+	
+	public JLabel getMarker() {
+		return this.markerText;
+	}
+	
+	public Tile resetTile() {
+		markerText.setText(player.paintMarker());
+		return this;
+	}
+	
+	public void setXMarker() {
+		markerText.setText(playerX.paintMarker());
+		markerText.setForeground (Color.blue);
+		markerText.setFont(new Font("Monaco", Font.PLAIN, 120));
+	}
+	public void setOMarker() {
+		markerText.setText(playerO.paintMarker());
+		markerText.setForeground (Color.red);
+		markerText.setFont(new Font("Monaco", Font.PLAIN, 120));
 	}
 	
 	@Override
