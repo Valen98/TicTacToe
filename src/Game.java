@@ -2,8 +2,8 @@
 public class Game {
 
 	public static void main(String[] args) {
-		new PlayFieldFactory();
-
+		Grid newGrid = new Grid();
+		new Frame(newGrid.createGrid());
 	}
 
 }

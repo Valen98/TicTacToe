@@ -12,8 +12,9 @@ import javax.swing.SwingConstants;
 public class Popup extends JFrame implements ActionListener {
 	private JButton restart;
 	private JLabel winnerText = new JLabel("", SwingConstants.CENTER);
+	private JLabel scoreText = new JLabel("");
 	private Grid grid;
-	
+	private int xScore, oScore = 0;
 	/***
 	 * 
 	 * @param winner gets current winner
@@ -27,15 +28,21 @@ public class Popup extends JFrame implements ActionListener {
 		JPanel winnerPanel = new JPanel();
 		JPanel buttonPanel = new JPanel();
 		restart.addActionListener(this);
-		if(winner == "draw") {
-			winnerText.setText("Its Draw!");
-
-		}else {
+		if(winner == "X") {
+			xScore++;
+			winnerText.setText(winner + " Won the game");
+		}else if(winner == "O") {
+			oScore++;
 			winnerText.setText(winner + " Won the game");
 		}
+		else {
+			winnerText.setText("Its Draw!");
+		}
 		
+		scoreText = new JLabel("The score is: X = " + xScore + " O = " + oScore, SwingConstants.CENTER);
 		winnerPanel.setLayout(new BorderLayout());
 		winnerPanel.add(winnerText, BorderLayout.NORTH);
+		winnerPanel.add(scoreText, BorderLayout.CENTER);
 		buttonPanel.add(restart);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout(5,5));

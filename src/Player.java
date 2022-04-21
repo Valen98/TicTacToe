@@ -25,9 +25,6 @@ public class Player {
 	
 	
 	public String paintMarker() {
-		System.out.println("Created Empty tile");
-		markerText.setText("");
-		//marker.add(markerText);
 		return "";
 	}
 	

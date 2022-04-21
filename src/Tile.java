@@ -49,6 +49,7 @@ public class Tile implements MouseListener{
 			player.setPlayerTurn();
 			tilePanel.repaint();
 			tilePanel.revalidate();
+			grid.updateTurn();
 			grid.getWinner();
 		}
 	}
@@ -66,12 +67,12 @@ public class Tile implements MouseListener{
 		return this;
 	}
 	
-	public void setXMarker() {
+	private void setXMarker() {
 		markerText.setText(playerX.paintMarker());
 		markerText.setForeground (Color.blue);
 		markerText.setFont(new Font("Monaco", Font.PLAIN, 120));
 	}
-	public void setOMarker() {
+	private void setOMarker() {
 		markerText.setText(playerO.paintMarker());
 		markerText.setForeground (Color.red);
 		markerText.setFont(new Font("Monaco", Font.PLAIN, 120));

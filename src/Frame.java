@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 public class Frame extends JFrame{
 	private JPanel titlePanel;
 	private JLabel titleLabel;
-	Frame(Grid grid) {
+	Frame(JPanel grid) {
 		new JFrame();
 		this.setTitle("Tic-tac-toe");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -19,11 +19,13 @@ public class Frame extends JFrame{
 		titlePanel = new JPanel();
 
 		titleLabel = new JLabel("Tic-tac-toe");
+
 		titlePanel.add(titleLabel);
+
 
 		add(titlePanel, BorderLayout.NORTH);
 
-		add(grid.getGridPanel());
+		add(grid);
 		revalidate();
 		repaint();
 		pack();
