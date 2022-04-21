@@ -34,7 +34,6 @@ public class Tile implements MouseListener{
 
 	public void updateValue() {
 		boolean playerTurn = player.getPlayerTurn();
-		System.out.println(playerX.getMarker().getText() + " <- This is the marker");
 		if(markerText.getText().equals("")) {
 			if(playerTurn) {
 				tilePanel.remove(this.playerPanel);
