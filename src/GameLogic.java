@@ -1,14 +1,21 @@
-
 public class GameLogic {
 	Grid grid;
 	int counter = 0;
 	Tile[][] tiles;
 	int gridLayout = 3;
-	
+
+	/***
+	 * 
+	 * @param getGrid  gets current Grid
+	 * @param counter: If the counter gets equal or more than 9 its a draw. With
+	 *                 other words the grid is full if any methods return other than
+	 *                 "noWinner" it returns the result
+	 * @return noWinner/X/O
+	 */
 	public String checkWinner(Grid getGrid) {
 		grid = getGrid;
 		counter++;
-		//this.gridLayout = grid.getGridLayout();
+		// this.gridLayout = grid.getGridLayout();
 		this.tiles = grid.getTiles();
 		if (!checkCol().equals("noWinner")) {
 			counter = 0;
@@ -26,7 +33,15 @@ public class GameLogic {
 			return "noWinner";
 		}
 	}
-	
+
+	/***
+	 * 
+	 * Checks every column if they contain X or O. If it contains 1 X/O on 1 column
+	 * then xCol/oCol gets +1 When xCol or oCol have 3 it then there are 3 X/O in
+	 * one column
+	 * 
+	 * @return noWinner/X/O
+	 */
 	public String checkCol() {
 		for (int i = 0; i < gridLayout; i++) {
 			int xCol = 0;
@@ -46,13 +61,19 @@ public class GameLogic {
 		}
 		return "noWinner";
 	}
-	
+
+	/***
+	 * 
+	 * Checks every row if they contain X or O. If it contains 1 X on 1 row then
+	 * xRow gets +1 When xRow or oRow have 3 it then there are 3 X/O in one row
+	 * 
+	 * @return noWinner/X/O
+	 */
 	public String checkRow() {
 		for (int i = 0; i < gridLayout; i++) {
 			int xRow = 0;
 			int oRow = 0;
 			for (int j = 0; j < gridLayout; j++) {
-
 				if (this.tiles[i][j].getMarker().getText().equals("X")) {
 					xRow++;
 				} else if (this.tiles[i][j].getMarker().getText().equals("O")) {
@@ -67,7 +88,16 @@ public class GameLogic {
 		}
 		return "noWinner";
 	}
-	
+
+	/**
+	 * for loop first checks if the player has marker in tile[0][0] - tile[2][2]. If
+	 * so the player has a top left to bottom right diagonal. xHor and oHor are
+	 * markers in top left to right bottom. Second part checks if the player has
+	 * marker in tile[2][0] - tile[0][0] which is bottom left and top right. if i =
+	 * 2 it checks top right
+	 * 
+	 * @return noWinner/X/O
+	 */
 	public String checkDiag() {
 		int xHor = 0;
 		int oHor = 0;

@@ -5,9 +5,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Frame extends JFrame{
+public class Frame extends JFrame {
 	private JPanel titlePanel;
 	private JLabel titleLabel;
+
 	Frame(JPanel grid) {
 		new JFrame();
 		this.setTitle("Tic-tac-toe");
@@ -21,7 +22,6 @@ public class Frame extends JFrame{
 		titleLabel = new JLabel("Tic-tac-toe");
 
 		titlePanel.add(titleLabel);
-
 
 		add(titlePanel, BorderLayout.NORTH);
 

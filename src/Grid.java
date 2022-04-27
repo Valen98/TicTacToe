@@ -10,35 +10,45 @@ public class Grid extends JPanel {
 
 	private Tile[][] tiles;
 	private Tile tile;
+	private int gridLayout = 3;
 	private JPanel gridPanel = new JPanel();
-	private JPanel titlePanel = new JPanel();
-	private JPanel playPanel = new JPanel();
+	private JPanel playerPanel = new JPanel();
+	private JPanel playFieldPanel = new JPanel();
 	private JLabel playersTurn = new JLabel("");
 	private Player player = new Player();
 	private PlayerX playerX = new PlayerX();
 	private PlayerO playerO = new PlayerO();
 	private GameLogic gameLogic = new GameLogic();
+	private int currentXScore = 0;
+	private int currentOScore = 0;
 
+	/***
+	 * First sets the playersTurn JLabel to the players turn PlayerPanel is the
+	 * playersTurn JLabel and the grid, playFieldPanel Creates a playFieldPanel with
+	 * the gridLayout 3,3 Adds Tile to the playFieldPanel.
+	 * 
+	 */
 	public JPanel createGrid() {
 		playersTurn.setText(getCurrentPlayer() + " Turn");
-		titlePanel.add(playersTurn);
+		playerPanel.add(playersTurn);
 		gridPanel.setLayout(new BorderLayout());
-		playPanel.setLayout(new GridLayout(3, 3));
-		playPanel.setBackground(new Color(150, 150, 150));
-		tiles = new Tile[3][3];
-		for (int column = 0; column < 3; column++) {
-			for (int row = 0; row < 3; row++) {
+		playFieldPanel.setLayout(new GridLayout(gridLayout, gridLayout));
+		playFieldPanel.setBackground(new Color(150, 150, 150));
+		tiles = new Tile[gridLayout][gridLayout];
+		for (int column = 0; column < gridLayout; column++) {
+			for (int row = 0; row < gridLayout; row++) {
 				tile = new Tile(this, playerX, playerO, player);
 				tiles[column][row] = tile;
-				playPanel.add(tile.getTile());
+				playFieldPanel.add(tile.getTile());
 			}
 		}
-		gridPanel.add(titlePanel, BorderLayout.NORTH);
-		gridPanel.add(playPanel, BorderLayout.CENTER);
+		gridPanel.add(playerPanel, BorderLayout.NORTH);
+		gridPanel.add(playFieldPanel, BorderLayout.CENTER);
 
 		return gridPanel;
 	}
 
+	// Resets the title by setting each tile to tiles[][].resetTile()
 	public void resetGrid() {
 		for (int row = 0; row < 3; row++) {
 			for (int column = 0; column < 3; column++) {
@@ -46,17 +56,19 @@ public class Grid extends JPanel {
 			}
 		}
 	}
-	
+
+	// Updates the playerTurn title and repaints it
+
 	public void updateTurn() {
-		if(player.getPlayerTurn()) {
+		if (player.getPlayerTurn()) {
 			playersTurn.setText("X Turn");
-		}else {
+		} else {
 			playersTurn.setText("O Turn");
 		}
-		titlePanel.repaint();
-		titlePanel.revalidate();
+		playerPanel.repaint();
+		playerPanel.revalidate();
 	}
-	
+
 	public String getCurrentPlayer() {
 		if (player.getPlayerTurn()) {
 			return "X";
@@ -73,14 +85,18 @@ public class Grid extends JPanel {
 		return tiles;
 	}
 
+	// If gameLogic.checkWinner returns other than "noWinner" it creates a new
+	// instance of Popup and sends in winner + this which is the grid
 	public void getWinner() {
 		String winner = gameLogic.checkWinner(this);
 		if (winner == "O") {
-			new Popup(winner, this);
+			currentOScore++;
+			new Popup(winner, this, currentOScore, currentXScore);
 		} else if (winner == "X") {
-			new Popup(winner, this);
+			currentXScore++;
+			new Popup(winner, this, currentOScore, currentXScore);
 		} else if (winner == "draw") {
-			new Popup(winner, this);
+			new Popup(winner, this, currentOScore, currentXScore);
 		}
 	}
 
