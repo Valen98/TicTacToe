@@ -29,5 +29,7 @@ public class Frame extends JFrame {
 		revalidate();
 		repaint();
 		pack();
+		
+		//Test commit
 	}
 }
